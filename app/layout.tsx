@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google"
 
+import Navbar from "@/components/navbar";
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
@@ -22,7 +23,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
     >
-      <body>
+      <body className="">
+        <Navbar/>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
