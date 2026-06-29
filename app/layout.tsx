@@ -1,5 +1,5 @@
 import { Geist_Mono, Inter } from "next/font/google"
-
+import { Analytics } from "@vercel/analytics/next"
 import Navbar from "@/components/navbar"
 import { Footer } from "@/components/sticky-footer"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -30,6 +30,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-svh">
+        <Analytics/>
         <ThemeProvider>
           <div className="flex min-h-svh flex-col">
             <Navbar />
