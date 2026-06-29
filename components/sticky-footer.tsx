@@ -16,7 +16,7 @@ export function Footer({
 }: StickyFooterProps) {
   return (
     <footer className="mt-24 w-full border-t border-border bg-foreground text-background">
-      <div className="mx-auto flex min-h-[42rem] max-w-7xl flex-col justify-between gap-12 px-6 py-12 sm:px-8 sm:py-14">
+      <div className="mx-auto flex min-h-168 max-w-7xl flex-col justify-between gap-12 px-6 py-12 sm:px-8 sm:py-14">
         <div className="max-w-md space-y-5">
           <h2 className="max-w-sm text-pretty text-3xl font-semibold leading-tight sm:text-4xl">
             {title}
