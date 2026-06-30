@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { LoginButton } from "@/components/login-button"
+import { AuthButton } from "./auth-button"
 import { Button } from "@/components/ui/button"
 
 type StickyFooterProps = {
@@ -12,7 +12,7 @@ type StickyFooterProps = {
 export function Footer({
   wordmark = "sticky",
   title = "Track every sticker.",
-  caption = "The oversized wordmark uses a responsive clamp size so it stays dramatic on desktop and still fits on mobile.",
+  caption = "Text missing here.",
 }: StickyFooterProps) {
   return (
     <footer className="mt-24 w-full border-t border-border bg-foreground text-background">
@@ -32,12 +32,7 @@ export function Footer({
             >
               <Link href="/stickers">Browse stickers</Link>
             </Button>
-            <LoginButton
-              variant="ghost"
-              className="rounded-full px-4 text-background hover:bg-background/10 hover:text-background"
-            >
-              Sign in
-            </LoginButton>
+            <AuthButton/>
           </div>
         </div>
 
@@ -50,6 +45,7 @@ export function Footer({
           </p>
           <div className="flex flex-col gap-3 border-t border-background/12 pt-4 text-xs text-background/50 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; 2026 Sticky</p>
+            <p>Created by <Link href={"https://vejas.zip"}>Vejas</Link></p>
             <p>Catalog the collection. Show the haul.</p>
           </div>
         </div>

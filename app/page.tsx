@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { LoginButton } from "@/components/login-button"
+import { AuthButton } from "@/components/auth-button"
 import { Button } from "@/components/ui/button"
 
 export default function Page() {
@@ -8,14 +8,16 @@ export default function Page() {
     <div className="flex min-h-svh flex-col">
       <div
         id="hero"
-        className="flex min-h-screen flex-col items-center justify-center"
+        className="flex min-h-[72svh]  flex-col items-center justify-start pt-48 sm:pt-48"
       >
-        <h1 className="text-center text-8xl font-bold">Sticky</h1>
+        <h1 className="text-center text-[clamp(6rem,18vw,16rem)] font-bold leading-[0.85] tracking-[-0.08em]">
+          Sticker
+        </h1>
         <div className="flex gap-3 pt-7">
-          <Button asChild variant={"ghost"}>
-            <Link href="/stickers">Explore the collection</Link>
+          <Button asChild variant={"outline"}>
+            <Link href="/stickers">Explore</Link>
           </Button>
-          <LoginButton />
+          <AuthButton />
         </div>
       </div>
       <div id="features1">

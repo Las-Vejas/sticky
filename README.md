@@ -3,8 +3,6 @@
 An app to track your collection of [Hack Club](https://hackclub.com) stickers!
 | Made for hackclub stardance |
 
-
-
 This is a Next.js template with shadcn/ui.
 
 ## Adding components

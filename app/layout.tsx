@@ -1,7 +1,7 @@
 import { Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Navbar from "@/components/navbar"
-import { Footer } from "@/components/sticky-footer"
+import { Footer } from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import "./globals.css"

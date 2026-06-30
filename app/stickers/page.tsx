@@ -20,8 +20,8 @@ export default async function StickersPage() {
   return (
     <div className="py-12">
       <div className="flex flex-col gap-3 border-b border-border pb-8 text-center">
-        <p className="text-sm font-medium tracking-[0.24em] text-muted-foreground ">
-          {allStickers.length} Available
+        <p className="text-sm font-medium tracking-tight text-muted-foreground ">
+          {allStickers.length} stickers
         </p>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           Available Stickers
