@@ -11,7 +11,7 @@ export default function Page() {
         className="flex min-h-[72svh]  flex-col items-center justify-start pt-48 sm:pt-48"
       >
         <h1 className="text-center text-[clamp(6rem,18vw,16rem)] font-bold leading-[0.85] tracking-[-0.08em]">
-          Sticker
+          Sticky
         </h1>
         <div className="flex gap-3 pt-7">
           <Button asChild variant={"outline"}>
