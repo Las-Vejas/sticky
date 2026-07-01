@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@better-auth-ui/react"
+import { useAuth, type AuthPlugin } from "@better-auth-ui/react"
 import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
@@ -27,8 +27,9 @@ export function AccountSettings({
   ...props
 }: AccountSettingsProps & ComponentProps<"div">) {
   const { emailAndPassword, plugins } = useAuth()
+  const authPlugins = plugins as AuthPlugin[]
 
-  const hasMagicLink = plugins.some((plugin) => plugin.id === "magicLink")
+  const hasMagicLink = authPlugins.some((plugin) => plugin.id === "magicLink")
 
   return (
     <div
@@ -37,7 +38,7 @@ export function AccountSettings({
     >
       <UserProfile />
       {(emailAndPassword?.enabled || hasMagicLink) && <ChangeEmail />}
-      {plugins.flatMap(
+      {authPlugins.flatMap(
         (plugin) =>
           plugin.accountCards?.map((Card, index) => (
             <Card key={`${plugin.id}-${index.toString()}`} />

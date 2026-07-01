@@ -1,7 +1,11 @@
 "use client"
 
 import type { SettingsView } from "@better-auth-ui/core"
-import { useAuth, useAuthenticate } from "@better-auth-ui/react"
+import {
+  useAuth,
+  useAuthenticate,
+  type AuthPlugin,
+} from "@better-auth-ui/react"
 import { Shield, User2 } from "lucide-react"
 import { useMemo } from "react"
 
@@ -30,6 +34,7 @@ export type SettingsProps = {
 export function Settings({ className, view, path, hideNav }: SettingsProps) {
   const { authClient, basePaths, localization, viewPaths, plugins, navigate } =
     useAuth()
+  const authPlugins = plugins as AuthPlugin[]
   useAuthenticate(authClient)
 
   if (!view && !path) {
@@ -42,18 +47,18 @@ export function Settings({ className, view, path, hideNav }: SettingsProps) {
 
     const match = [
       viewPaths.settings,
-      ...plugins.map((plugin) => plugin.viewPaths?.settings)
+      ...authPlugins.map((plugin) => plugin.viewPaths?.settings)
     ]
       .flatMap((source) => Object.entries(source ?? {}))
       .find(([, segment]) => segment === path)
 
     return match?.[0] as SettingsView | undefined
-  }, [view, path, viewPaths.settings, plugins])
+  }, [view, path, viewPaths.settings, authPlugins])
 
   if (!currentView) {
     const validPaths = [
       viewPaths.settings,
-      ...plugins.map((plugin) => plugin.viewPaths?.settings)
+      ...authPlugins.map((plugin) => plugin.viewPaths?.settings)
     ]
       .flatMap((source) => Object.values(source ?? {}))
       .join(", ")
@@ -97,7 +102,7 @@ export function Settings({ className, view, path, hideNav }: SettingsProps) {
             {localization.settings.security}
           </TabsTrigger>
 
-          {plugins.flatMap(
+          {authPlugins.flatMap(
             (plugin) =>
               plugin.settingsTabs?.map((settingsTab, index) => (
                 <TabsTrigger
@@ -125,7 +130,7 @@ export function Settings({ className, view, path, hideNav }: SettingsProps) {
         <SecuritySettings />
       </TabsContent>
 
-      {plugins.flatMap((plugin) =>
+      {authPlugins.flatMap((plugin) =>
         plugin.settingsTabs?.map((settingsTab, index) => (
           <TabsContent
             key={`${plugin.id}-${index.toString()}`}

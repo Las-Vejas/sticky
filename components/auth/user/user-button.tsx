@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  type AuthPlugin,
   type MultiSessionAuthClient,
   useAuth,
   useSession,
@@ -116,6 +117,7 @@ export function UserButton({
 }: UserButtonProps) {
   const { authClient, basePaths, viewPaths, localization, plugins, navigate } =
     useAuth()
+  const authPlugins = plugins as AuthPlugin[]
 
   const { isPending: settingActiveSession } = useSetActiveSession(
     authClient as MultiSessionAuthClient
@@ -203,7 +205,7 @@ export function UserButton({
               </DropdownMenuItem>
             )}
 
-            {plugins.flatMap((plugin) =>
+            {authPlugins.flatMap((plugin) =>
               plugin.userMenuItems?.map((Item, index) => (
                 <Item key={`${plugin.id}-${index.toString()}`} />
               ))
@@ -251,7 +253,7 @@ export function UserButton({
               {localization.auth.signUp}
             </DropdownMenuItem>
 
-            {plugins.flatMap((plugin) =>
+            {authPlugins.flatMap((plugin) =>
               plugin.userMenuItems?.map((Item, index) => (
                 <Item key={`${plugin.id}-${index.toString()}`} />
               ))

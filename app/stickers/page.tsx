@@ -58,7 +58,6 @@ export default async function StickersPage() {
                     {sticker.artist}
                   </p>
                 ) : null}
-                <p className="text-sm text-gray-400">id: {sticker.id}</p>
               </div>
 
               <div className="mt-auto flex flex-wrap gap-2">

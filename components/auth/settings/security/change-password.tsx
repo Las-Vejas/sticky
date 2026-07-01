@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  type AuthPlugin,
   useAuth,
   useChangePassword,
   useFetchOptions,
@@ -66,6 +67,7 @@ export function ChangePassword({ className }: ChangePasswordProps) {
 
 function SetPassword({ className }: { className?: string }) {
   const { authClient, localization, plugins } = useAuth()
+  const authPlugins = plugins as AuthPlugin[]
   const { data: session } = useSession(authClient)
   const { fetchOptions, resetFetchOptions } = useFetchOptions()
 
@@ -79,7 +81,7 @@ function SetPassword({ className }: { className?: string }) {
     }
   )
 
-  const Captcha = plugins.find(
+  const Captcha = authPlugins.find(
     (plugin) => plugin.captchaComponent
   )?.captchaComponent
 
