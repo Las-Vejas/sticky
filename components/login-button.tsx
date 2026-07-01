@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useTransition } from "react"
 
 import { authClient } from "@/lib/auth-client"
@@ -27,8 +28,28 @@ export function LoginButton({
   }
 
   return (
-    <Button onClick={handleClick} disabled={disabled || isPending} {...props}>
-      {isPending ? "Redirecting..." : children}
+    <Button
+      onClick={handleClick}
+      variant={"hackclub"}
+      disabled={disabled || isPending}
+      {...props}
+      className="p-2 justify-center align-center"
+    >
+      {isPending ? (
+        "Redirecting..."
+      ) : (
+        <>
+          <Image
+            src="/assets/hackclub.svg"
+            alt=""
+            width={18}
+            height={18}
+            className="shrink-0 pl-0"
+            aria-hidden="true"
+          />
+          <span>{children}</span>
+        </>
+      )}
     </Button>
   )
 }
