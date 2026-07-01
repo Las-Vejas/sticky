@@ -1,4 +1,5 @@
 import { createClient } from "@tursodatabase/serverless/compat"
+import { fileURLToPath } from "node:url"
 
 const STICKERS_API_URL = "http://stickers.hackclub.com/api/stickers"
 
@@ -44,7 +45,7 @@ async function ensureStickersTable() {
   })
 }
 
-async function syncStickers() {
+export async function syncStickers() {
   const response = await fetch(STICKERS_API_URL)
 
   if (!response.ok) {
@@ -108,9 +109,19 @@ async function syncStickers() {
     args: [],
   })
 
-  console.log(
-    `Synced ${normalizedStickers.length} stickers. DB now has ${count.rows[0][0]} stickers.`
-  )
+  const totalStickers = Number(count.rows[0][0])
+
+  return {
+    syncedStickers: normalizedStickers.length,
+    totalStickers,
+    updatedAt,
+  }
 }
 
-await syncStickers()
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const result = await syncStickers()
+
+  console.log(
+    `Synced ${result.syncedStickers} stickers. DB now has ${result.totalStickers} stickers.`
+  )
+}

@@ -45,6 +45,20 @@ does not already exist.
 npm run sync:stickers
 ```
 
+### Vercel sticker cron
+
+`vercel.json` schedules `/api/cron` three times a day in UTC:
+
+```txt
+00:00 UTC
+08:00 UTC
+16:00 UTC
+```
+
+The cron route runs the same sticker sync as `npm run sync:stickers`, then
+revalidates the `stickers` cache tag so the `/stickers` page can pick up fresh
+data.
+
 ### Inspect the remote DB
 
 Replace `<database-name>` with your Turso database name.

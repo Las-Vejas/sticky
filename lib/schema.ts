@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm"
 import {
   index,
   integer,
+  primaryKey,
   sqliteTable,
   text,
   uniqueIndex,
@@ -113,3 +114,26 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }))
+
+export const userStickers = sqliteTable(
+  "user_stickers",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+
+    stickerId: integer("stickerId")
+      .notNull()
+      .references(() => stickers.id, { onDelete: "cascade" }),
+
+    quantity: integer("quantity").notNull().default(1),
+
+    acquiredAt: integer("acquiredAt", { mode: "timestamp_ms" }).notNull(),
+    updatedAt: integer("updatedAt", { mode: "timestamp_ms" }).notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId, table.stickerId] }),
+    index("user_stickers_userId_idx").on(table.userId),
+    index("user_stickers_stickerId_idx").on(table.stickerId),
+  ],
+)
