@@ -19,7 +19,7 @@ export async function GET(request) {
 
   const result = await syncStickers()
 
-  revalidateTag("stickers")
+  revalidateTag("stickers", "default")
 
   return NextResponse.json({
     ok: true,

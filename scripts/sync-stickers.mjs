@@ -68,7 +68,7 @@ export async function syncStickers() {
   for (const sticker of normalizedStickers) {
     await client.execute({
       sql: `
-        INSERT INTO stickers (
+        INSERT OR REPLACE INTO stickers (
           id,
           name,
           cdnUrl,
@@ -80,15 +80,6 @@ export async function syncStickers() {
           updatedAt
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-          name = excluded.name,
-          cdnUrl = excluded.cdnUrl,
-          artist = excluded.artist,
-          event = excluded.event,
-          eventUrl = excluded.eventUrl,
-          sheet = excluded.sheet,
-          shiny = excluded.shiny,
-          updatedAt = excluded.updatedAt
       `,
       args: [
         sticker.id,
