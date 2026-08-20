@@ -7,7 +7,7 @@ import { asc, inArray } from "drizzle-orm"
 import { stickers } from "@/lib/schema"
 
 export default async function Page() {
-  const stickerChoices = [33495, 33512, 33519, 33491, 33542, 33683, 34815, 33669, 33534, 33499, 33724, 33758, 33666, 33617]
+  const stickerChoices = [3839758, 3839775, 3839778, 3839782, 3839784, 3839797, 3839799, 3839818, 3839830, 3839877, 3839904, 3839909, 3839908, 3839931]
 
   const heroStickers = await db
     .select({
@@ -41,7 +41,16 @@ export default async function Page() {
           <AuthButton />
         </div>
       </div>
-      <div id="features1">
+      <div id="features1" className="">
+        <div className="grid grid-cols-2">
+          <div className="flex-col items justify-center">
+            <h2 className="text-5xl text-center font-bold tracking-tight mb-5">Easy to use UI</h2>
+            <p>Just take a snap of your sticker collection, and all of them will be added to your collection!</p>
+          </div>
+          <div className="flex items justify-center">
+            <p>Image of ui goes here</p>
+          </div>
+        </div>
       </div>
     </div>
   )

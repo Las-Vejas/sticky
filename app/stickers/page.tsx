@@ -4,6 +4,7 @@ import Image from "next/image"
 
 import { db } from "@/lib/db"
 import { stickers } from "@/lib/schema"
+import { AddStickerButton } from "@/components/add-sticker-button"
 
 const getCachedStickers = unstable_cache(
   async () => db.select().from(stickers).orderBy(asc(stickers.name)),
@@ -60,33 +61,36 @@ export default async function StickersPage() {
                 ) : null}
               </div>
 
-              <div className="mt-auto flex flex-wrap gap-2">
-                {sticker.event ? (
-                  sticker.eventUrl ? (
-                    <a
-                      href={sticker.eventUrl}
-                      className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground transition hover:text-foreground"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {sticker.event}
-                    </a>
-                  ) : (
-                    <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                      {sticker.event}
+              <div className="mt-auto flex flex-col gap-3">
+                <div className="flex flex-wrap gap-2">
+                  {sticker.event ? (
+                    sticker.eventUrl ? (
+                      <a
+                        href={sticker.eventUrl}
+                        className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground transition hover:text-foreground"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {sticker.event}
+                      </a>
+                    ) : (
+                      <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                        {sticker.event}
+                      </span>
+                    )
+                  ) : null}
+                  {sticker.sheet ? (
+                    <span className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
+                      Sheet
                     </span>
-                  )
-                ) : null}
-                {sticker.sheet ? (
-                  <span className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
-                    Sheet
-                  </span>
-                ) : null}
-                {sticker.shiny ? (
-                  <span className="rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground">
-                    Shiny
-                  </span>
-                ) : null}
+                  ) : null}
+                  {sticker.shiny ? (
+                    <span className="rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground">
+                      Shiny
+                    </span>
+                  ) : null}
+                </div>
+                <AddStickerButton stickerId={sticker.id} />
               </div>
             </div>
           </article>
