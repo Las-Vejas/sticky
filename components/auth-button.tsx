@@ -23,11 +23,12 @@ export function AuthButton() {
   }
 
   return (
+    <a href="/collection">
     <Button
       variant="default"
       aria-label={`${session.user.name} account`}
     >
         Your collection
-    </Button>
+    </Button></a>
   )
 }
