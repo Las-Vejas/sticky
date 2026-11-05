@@ -1,8 +1,5 @@
-"use client"
-
 import { createAuthClient } from "better-auth/react"
-import { genericOAuthClient } from "better-auth/client/plugins"
 
 export const authClient = createAuthClient({
-  plugins: [genericOAuthClient()],
+  // Add other client plugins here if needed (e.g. adminClient, passkeyClient)
 })

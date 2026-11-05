@@ -20,8 +20,8 @@ export function LoginButton({
 
   function handleClick() {
     startTransition(async () => {
-      await authClient.signIn.oauth2({
-        providerId: "hackclub",
+      await authClient.signIn.social({
+        provider: "hackclub",
         callbackURL,
       })
     })

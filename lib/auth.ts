@@ -2,7 +2,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { betterAuth } from "better-auth"
 import { toNextJsHandler, nextCookies } from "better-auth/next-js"
 import { genericOAuth } from "better-auth/plugins/generic-oauth"
-
+import { dash } from "@better-auth/infra"
 import { db } from "@/lib/db"
 import * as schema from "@/lib/schema"
 
@@ -32,6 +32,7 @@ export const auth = betterAuth({
   }),
   plugins: [
     nextCookies(),
+    dash(),
     genericOAuth({
       config: [
         {
@@ -40,38 +41,20 @@ export const auth = betterAuth({
           authorizationUrl: hackClubAuthorizationUrl,
           tokenUrl: hackClubTokenUrl,
           userInfoUrl: hackClubUserInfoUrl,
-          issuer: hackClubIssuer,
           clientId: process.env.HACK_CLUB_AUTH_CLIENT_ID ?? "",
           clientSecret: process.env.HACK_CLUB_AUTH_CLIENT_SECRET ?? "",
           scopes: ["openid", "profile", "email", "name", "slack_id"],
           overrideUserInfo: true,
-          mapProfileToUser(profile) {
-            const email =
-              typeof profile.email === "string" ? profile.email : undefined
-            const slackId =
-              typeof profile.slack_id === "string" ? profile.slack_id : undefined
-            const name =
-              typeof profile.name === "string"
-                ? profile.name
-                : typeof profile.preferred_username === "string"
-                  ? profile.preferred_username
-                  : email ?? "Hack Club User"
-            const image = slackId
-              ? `${cachetBaseUrl}/users/${encodeURIComponent(slackId)}/r`
-              : typeof profile.picture === "string"
-                ? profile.picture
-                : typeof profile.avatar_url === "string"
-                  ? profile.avatar_url
-                  : null
-
-            return {
-              email,
-              name,
-              image,
-              slackId,
-              emailVerified: Boolean(profile.email_verified),
-            }
-          },
+          mapProfileToUser: (profile) => {
+  return {
+    email: profile.email,
+    name: profile.name,
+    // Change `null` to `undefined` (or nullish coalescing)
+    image: profile.image ?? undefined,
+    slackId: profile.slackId,
+    emailVerified: profile.emailVerified ?? false,
+  }
+}
         },
       ],
     }),
